@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('collections', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom', 100);
-            $table->text('description')->nullable();
-            $table->foreignId('admin_id')->constrained('admins')->onDelete('set null');
-        
-            $table->timestamps();
+             $table->id();
+             $table->string('nom', 100);
+             $table->text('description')->nullable();
+             $table->unsignedBigInteger('admin_id')->nullable();
+             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
+             $table->timestamps();
         });
     }
 

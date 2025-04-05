@@ -13,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ligne_commandes', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('commande_id')->constrained('commandes')->onDelete('cascade');
-            $table->foreignId('produit_id')->constrained('produits')->onDelete('cascade');
-            $table->integer('quantite');
-            $table->decimal('prix_unitaire', 10, 2);
-            
-            $table->timestamps();
-        });
+       Schema::create('ligne_commandes', function (Blueprint $table) {
+        $table->id();
+         $table->unsignedBigInteger('produit_id');
+        $table->unsignedBigInteger('commande_id');
+        $table->integer('quantite');
+        $table->decimal('prix_unitaire', 8, 2);
+        $table->timestamps();
+        $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
+       $table->foreign('commande_id')->references('id')->on('commandes')->onDelete('cascade');
+});
+
     }
 
     /**
