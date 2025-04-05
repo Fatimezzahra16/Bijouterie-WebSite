@@ -3,17 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\CollectionController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
@@ -29,7 +22,23 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+//crud  pour les produit
+Route::get('/product',[ProduitController::class,'index'])->name('product.index');
+Route::get('/product/create', [ProduitController::class, 'create'])->name('product.create');
+Route::post('/product',[ProduitController::class,'store'])->name('product.store');
+Route::get('/product/{product}/edit',[ProduitController::class,'edit'])->name('product.edit');
+Route::put('/product/{product}/update',[ProduitController::class,'update'])->name('product.update');
+Route::delete('/product/{product}/delete',[ProduitController::class,'delete'])->name('product.delete');
 
+//admin page
+route::get('admin',[HomeController::class,'index_admin'])->name('admin.index');
+
+
+//crud pour les collection
+Route::get('/collections',[CollectionController::class,'index'])->name('collection.index');
+Route::get('/collections/or',[CollectionController::class,'index_or'])->name('collection.index_or');
+Route::get('/collections/argent',[CollectionController::class,'index_argent'])->name('collection.index_argent');
+Route::get('/collections/diamant',[CollectionController::class,'index_diamant'])->name('collection.index_diamant');
 /*
 Route::get('/', fn () => view('index'));
 Route::get('/contact', fn () => view('contact'));

@@ -219,7 +219,7 @@ $collectionTitle =['Collection Argent','Collection Or',
                 
              
                <button class="px-2 py-2 text-sm rounded-full border border-gray-300 hover:border-gold hover-gold transition">
-                <li><a href="../site_eco/Connexion.php" class="fas fa-user mr-2">Connexion</a> 
+                <li><a href="{{ route('login') }}" class="fas fa-user mr-2">Connexion</a> 
                 </button></li>
                 
                

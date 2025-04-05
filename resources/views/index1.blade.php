@@ -163,10 +163,10 @@ $collectionTitle =['Collection Argent','Collection Or',
         
             <div class="flex items-center space-x-4">         
                  <div class="flex space-x-4">
-                    <a href="../site_eco/Connexion.php" class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full transition font-medium">
+                    <a href="{{ route('register') }}" class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full transition font-medium">
                         <i class="fas fa-user mr-2"></i>Connexion
                     </a>
-                    <a href="../site_eco/Inscription.php" class="gold-bg hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition font-medium">
+                    <a href="{{ route('login') }}" class="gold-bg hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition font-medium">
                         <i class="fas fa-user-plus mr-2"></i>Inscription
                     </a>
                 </div>
