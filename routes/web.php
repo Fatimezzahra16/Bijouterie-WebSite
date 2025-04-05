@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,3 +28,13 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+/*
+Route::get('/', fn () => view('index'));
+Route::get('/contact', fn () => view('contact'));
+Route::get('/faq', fn () => view('faq'));
+Route::get('/livraison', fn () => view('livraison'));
+Route::get('/retours', fn () => view('retours'));
+Route::get('/collections/{type}', [PageController::class, 'show'])->where('type', 'argent|or|diamants');
+*/
