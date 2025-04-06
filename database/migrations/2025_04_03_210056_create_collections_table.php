@@ -8,7 +8,6 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
      * @return void
      */
     public function up()
@@ -17,7 +16,7 @@ return new class extends Migration
              $table->id();
              $table->string('nom', 100);
              $table->text('description')->nullable();
-             $table->unsignedBigInteger('admin_id')->nullable();
+             $table->unsignedBigInteger('admin_id')->nullable()->default(1);
              $table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
              $table->timestamps();
         });

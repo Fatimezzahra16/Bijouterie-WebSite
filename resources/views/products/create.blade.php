@@ -70,6 +70,15 @@
             <label for="qty">Quantité:</label>
             <input type="number" id="qty" name="qty" min="1" required>
         </div>
+
+        <select name="collection_id" required>
+        <option value="">Select a collection</option>
+        @foreach($collections as $collection)
+            <option value="{{ $collection->id }}" {{ old('collection_id') == $collection->id ? 'selected' : '' }}>
+                {{ $collection->name }}
+            </option>
+        @endforeach
+    </select>
         
         
         

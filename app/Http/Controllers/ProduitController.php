@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produit;
 use Illuminate\Http\Request;
+
+use App\Models\Produit;
 
 class ProduitController extends Controller
 {
@@ -25,9 +26,7 @@ class ProduitController extends Controller
     public function create()
     {
         return view('products.create');
-
-        
-        
+   
     }
 
     /**
@@ -38,7 +37,16 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request -> validate([
+            'nom' => 'required',
+            'description'=> 'required',
+            'prix' => 'require|decimal:0,2',
+            'stock' => 'required|numeric',
+            'collection_id' => 'required|numeric',
+        ]);
+
+        $newProduct = Produit::create($data);
+        return redirect(route('product.index'));
     }
 
     /**

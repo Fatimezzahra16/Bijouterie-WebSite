@@ -18,7 +18,7 @@ class Produit extends Model
         'description',
         'prix',
         'stock',
-        'collection_id'
+        'collection_id',
     ];
 
     /**
