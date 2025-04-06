@@ -12,4 +12,9 @@ class Collection extends Model
         'nom',
         'description',
     ];
+
+    public function products()
+    {
+    return $this->hasMany(Produit::class);
+    }
 }

@@ -92,13 +92,13 @@
             </div>
             <div class="px-3 mb-4">
                 <p class="text-xs uppercase text-gray-500 mb-1 px-2">Produits</p>
-                <a href="{{url('view_category')}}" class="block text-sm sidebar-link">
+                <a href="{{route('product.index')}}" class="block text-sm sidebar-link">
                     <i class="fas fa-gem mr-2"></i> Voir Produits
                 </a>
-                <a href="#" class="block text-sm sidebar-link">
+                <a href="{{route('product.create')}}" class="block text-sm sidebar-link">
                     <i class="fas fa-plus-circle mr-2"></i> Ajouter
                 </a>
-                 <a href="#" class="block text-sm sidebar-link">
+                 <a href="{{route('product.index')}}" class="block text-sm sidebar-link">
                     <i class="fas fa-plus-circle mr-2"></i> Supprimer
                 </a>
             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Produit;
+use App\Models\Collection;
 
 class ProduitController extends Controller
 {
@@ -15,7 +16,9 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        return view('products.index');
+        $products = Produit::with('collection')->get();
+        //return view('products.index',['products' => $products]);
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -25,7 +28,10 @@ class ProduitController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        
+        $collections = \App\Models\Collection::all();
+        //dd($collections);
+        return view('products.create', compact('collections'));
    
     }
 
@@ -40,9 +46,9 @@ class ProduitController extends Controller
         $data = $request -> validate([
             'nom' => 'required',
             'description'=> 'required',
-            'prix' => 'require|decimal:0,2',
+            'prix' => 'required|decimal:0,2',
             'stock' => 'required|numeric',
-            'collection_id' => 'required|numeric',
+            'collection_id' => 'required|exists:collections,id',
         ]);
 
         $newProduct = Produit::create($data);
@@ -55,20 +61,22 @@ class ProduitController extends Controller
      * @param  \App\Models\Produit  $produit
      * @return \Illuminate\Http\Response
      */
+    /*
     public function show(Produit $produit)
     {
         //
     }
-
+    */
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Produit  $produit
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produit $produit)
+    public function edit(Produit $product)
     {
-        //
+        $collections = \App\Models\Collection::all();
+        return view('products.edit', compact('product','collections'));
     }
 
     /**
@@ -78,9 +86,17 @@ class ProduitController extends Controller
      * @param  \App\Models\Produit  $produit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produit $produit)
+    public function update(Request $request, Produit $product)
     {
-        //
+        $data = $request -> validate([
+            'nom' => 'required',
+            'description'=> 'required',
+            'prix' => 'required|decimal:0,2',
+            'stock' => 'required|numeric',
+            'collection_id' => 'required|exists:collections,id',
+        ]);
+        $product->update($data) ;
+        return redirect(route('product.index'))->with('success','Le produit a été modifier avec succés');
     }
 
     /**
@@ -89,8 +105,10 @@ class ProduitController extends Controller
      * @param  \App\Models\Produit  $produit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produit $produit)
+    public function delete(Produit $product)
     {
-        //
+        $product->delete();
+        return redirect(route('product.index'))->with('success','Le produit a été supprimer avec succés');
+
     }
 }
