@@ -165,7 +165,11 @@
     
     <div class="form-container">
         <h1>Créer une nouvelle collection</h1>
-        <form method="post" action="{{ route('collection.store') }}">
+        <form method="post" action="{{ route('collection.store') }}" enctype="multipart/form-data">
+            {{-- CSRF Token for security --}}
+            @csrf
+            
+            {{-- Method Spoofing for POST request --}}
             @csrf
             @method('POST')
             
@@ -177,6 +181,11 @@
             <div class="form-group">
                 <label for="description">Description :</label>
                 <textarea id="description" name="description" placeholder="Décrivez la collection...">{{ old('description') }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="photo">Photo de la collection</label>
+                <input type="file" name="photo" class="form-control">
             </div>
             
             <button type="submit" class="submit-btn">

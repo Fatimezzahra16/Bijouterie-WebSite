@@ -19,6 +19,7 @@ class Produit extends Model
         'prix',
         'stock',
         'collection_id',
+        'photo', // Added photo attribute
     ];
 
     /**

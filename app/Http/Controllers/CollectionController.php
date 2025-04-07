@@ -27,7 +27,14 @@ class CollectionController extends Controller
         $data = $request -> validate([
             'nom' => 'required',
             'description'=> 'required',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('photo')) {
+            $imageName = time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('images/collections'), $imageName);
+            $data['photo'] = $imageName;
+        }
 
         $NewCollection=Collection::create($data);
         return redirect(route('collection.index'));
@@ -41,7 +48,19 @@ class CollectionController extends Controller
         $data = $request -> validate([
             'nom' => 'required',
             'description'=> 'required',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('photo')) {
+            // 🔥 Supprimer l'ancienne image si elle existe
+            if ($collection->photo && file_exists(public_path('images/collections/' . $collection->photo))) {
+                unlink(public_path('images/collections/' . $collection->photo));
+            }
+                // ✅ Enregistrer la nouvelle image
+                  $imageName = time() . '.' . $request->photo->extension();
+                  $request->photo->move(public_path('images/collections'), $imageName);
+                  $data['photo'] = $imageName;
+            }
 
         $collection -> update($data);
         return redirect(route("collection.index"))->with('success','la collection a été modifier avec succés!');
@@ -50,7 +69,5 @@ class CollectionController extends Controller
     public function delete(Collection $collection){
         $collection->delete();
         return redirect(route("collection.index"))->with('success','la collection a été supprimer avec succés!');
-
-
     }
 }

@@ -155,11 +155,19 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($products as $item)
                 <div class="product-card">
-                    <div class="relative">
-                        <div class="product-image">
-                            <i class="fas fa-gem"></i>
+                    <div class="collection-card group relative">
+                        <div class="collection-image relative overflow-hidden h-48 bg-gray-100">
+                            @if($item->photo)
+                                <img src="{{ asset('images/products/' . $item->photo) }}" 
+                                     alt="{{ $item->nom }}"
+                                     class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                    <i class="fas fa-camera fa-3x"></i>
+                                </div>
+                            @endif
                         </div>
-                        <span class="product-badge">#{{ $item->id }}</span>
+                      <!--  <span class="product-badge">#{{ $item->id }}</span> -->
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">{{ $item->nom }}</h3>

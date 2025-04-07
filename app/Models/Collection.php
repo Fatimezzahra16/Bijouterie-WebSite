@@ -11,6 +11,7 @@ class Collection extends Model
     protected $fillable = [
         'nom',
         'description',
+        'photo', // Added photo attribute
     ];
 
     public function products()

@@ -49,7 +49,18 @@ class ProduitController extends Controller
             'prix' => 'required|decimal:0,2',
             'stock' => 'required|numeric',
             'collection_id' => 'required|exists:collections,id',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        //dd($data);
+        //dd($request->all());
+        //dd($request->file('photo'));
+        //dd($request->photo);
+        //dd($request->hasFile('photo'))
+        if ($request->hasFile('photo')) {
+            $imageName = time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('images/products'), $imageName);
+            $data['photo'] = $imageName;
+        }
 
         $newProduct = Produit::create($data);
         return redirect(route('product.index'));
@@ -94,7 +105,16 @@ class ProduitController extends Controller
             'prix' => 'required|decimal:0,2',
             'stock' => 'required|numeric',
             'collection_id' => 'required|exists:collections,id',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('photo')) {
+            $imageName = time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('images/products'), $imageName);
+            $data['photo'] = $imageName;
+        }
+        //dd($data);
+        //dd($product);
         $product->update($data) ;
         return redirect(route('product.index'))->with('success','Le produit a été modifier avec succés');
     }

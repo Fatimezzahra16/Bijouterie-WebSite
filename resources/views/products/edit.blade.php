@@ -227,7 +227,17 @@
                         @endforeach
                     </select>
                 </div>
-                
+                <div class="form-group relative">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Changer la photo :</label>
+                    
+                    <!-- Custom file input container -->
+                    <div class="relative">
+                        <!-- Hidden actual file input -->
+                        <input type="file" 
+                               name="photo" 
+                               id="photo"
+                               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                               onchange="document.getElementById('file-name').textContent = this.files[0]?.name || 'Aucun fichier sélectionné'">
                 <button type="submit" class="submit-btn">
                     <i class="fas fa-plus-circle"></i> Modifier
                 </button>

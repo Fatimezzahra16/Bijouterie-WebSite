@@ -193,7 +193,36 @@
             margin-bottom: 1.5rem;
             text-align: center;
         }
-    </style>
+        .collection-image {
+    position: relative;
+    overflow: hidden;
+    height: 200px; /* Ajustez cette valeur selon vos besoins */
+    background-color: #f5f5f5;
+}
+
+.collection-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.collection-card:hover .collection-image img {
+    transform: scale(1.05);
+}
+
+/* Style pour le placeholder quand pas d'image */
+.no-photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #d4af37;
+    font-size: 3rem;
+    background: linear-gradient(135deg, #f9f9f9 0%, #e0e0e0 100%);
+}
+
     </style>
 </head>
 <body>
@@ -245,9 +274,17 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach ($collections as $item)
             
-            <div class="collection-card">
-                <div class="collection-image">
-                    <i class="fas fa-gem"></i>
+            <div class="collection-card group relative">
+                <div class="collection-image relative overflow-hidden h-48 bg-gray-100">
+                    @if($item->photo)
+                        <img src="{{ asset('images/collections/' . $item->photo) }}" 
+                             alt="{{ $item->nom }}"
+                             class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
+                    @else
+                        <div class="w-full h-full flex items-center justify-center text-gray-400">
+                            <i class="fas fa-camera fa-3x"></i>
+                        </div>
+                    @endif
                 </div>
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2">{{ $item->nom }}</h3>

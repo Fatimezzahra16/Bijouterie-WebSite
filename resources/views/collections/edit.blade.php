@@ -184,6 +184,23 @@
         .delete-btn:hover {
             background-color: #f5c6cb;
         }
+        /* File input hover effect */
+        input[type="file"] + label:hover {
+        border-color: #d4af37;
+        color: #d4af37;
+        }
+
+        /* Image preview hover effect */
+        .group:hover .group-hover\:bg-opacity-30 {
+        background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Transition for smooth hover effects */
+        .transition {
+        transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+        }
     </style>
 </head>
 <body>
@@ -193,7 +210,7 @@
     
     <div class="form-container">
         <h1>Éditer la collection</h1>
-        <form method="post" action="{{ route('collection.update', ['collection' => $collection]) }}">
+        <form method="post" action="{{ route('collection.update', ['collection' => $collection]) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             
@@ -206,6 +223,18 @@
                 <label for="description">Description :</label>
                 <textarea id="description" name="description" placeholder="Description détaillée...">{{ old('description', $collection->description) }}</textarea>
             </div>
+
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Changer la photo :</label>
+                
+                <div class="flex items-center">
+                    <!-- File Input -->
+                    <div class="relative flex-1">
+                        <input type="file" name="photo" id="photo" value="{{ old('photo') }} "
+                               class="opacity-0 absolute inset-0 w-full h-full cursor-pointer">
+                       
+                    </div>
+                </div>
             
             <button type="submit" class="submit-btn">
                 <i class="fas fa-save"></i> Enregistrer les modifications

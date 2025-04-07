@@ -181,6 +181,35 @@
             border-color: var(--gold);
             color: var(--gold);
         }
+        .collection-image {
+    position: relative;
+    overflow: hidden;
+    height: 200px; /* Ajustez cette valeur selon vos besoins */
+    background-color: #f5f5f5;
+}
+
+.collection-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.collection-card:hover .collection-image img {
+    transform: scale(1.05);
+}
+
+/* Style pour le placeholder quand pas d'image */
+.no-photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #d4af37;
+    font-size: 3rem;
+    background: linear-gradient(135deg, #f9f9f9 0%, #e0e0e0 100%);
+}
     </style>
 </head>
 <body>
@@ -226,6 +255,11 @@
                             </option>
                         @endforeach
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="photo">Photo du produit</label>
+                    <input type="file" name="photo" class="form-control">
                 </div>
                 
                 <button type="submit" class="submit-btn">
