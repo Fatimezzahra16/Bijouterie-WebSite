@@ -15,11 +15,48 @@ class ProduitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+
     {
         $products = Produit::with('collection')->get();
+        $collections = Collection::all();
         //return view('products.index',['products' => $products]);
-        return view('products.index', compact('products'));
+        return view('products.index', compact('products','collections'));
     }
+    // filtrer les produits
+    public function filtrer(Request $request)
+{
+    $query = Produit::query();
+
+    if ($request->filled('nom')) {
+        $query->where('nom', 'like', '%' . $request->nom . '%');
+    }
+
+    if ($request->filled('collection_id')) {
+        $query->where('collection_id', $request->collection_id);
+    }
+
+    if ($request->filled('prix_min')) {
+        $query->where('prix', '>=', $request->prix_min);
+    }
+
+    if ($request->filled('prix_max')) {
+        $query->where('prix', '<=', $request->prix_max);
+    }
+
+    if ($request->has('stock_only')) {
+        $query->where('stock', '>', 0);
+    }
+
+    if ($request->filled('sort_by')) {
+        $query->orderBy($request->sort_by, 'asc');
+    }
+
+    $products = $query->paginate(10); // Pagination ici
+    $collections = Collection::all();
+
+    return view('products.index', compact('products', 'collections'));
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -131,4 +168,14 @@ class ProduitController extends Controller
         return redirect(route('product.index'))->with('success','Le produit a été supprimer avec succés');
 
     }
+
+    public function show(Produit $product)
+    {
+        return view('products.show', compact('product'));
+    }
+    public function showByType($type)
+    {
+        $products = Produit::where('type', $type)->get();
+        return view('products.index', compact('products'));
+    }   
 }

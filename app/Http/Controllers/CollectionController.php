@@ -70,4 +70,18 @@ class CollectionController extends Controller
         $collection->delete();
         return redirect(route("collection.index"))->with('success','la collection a été supprimer avec succés!');
     }
+    public function show(Collection $collection){
+        return view('collections.show', compact('collection'));
+    }
+    /*
+    public function show_or(Collection $collection){
+        return view('collections.show_or',['collection' => $collection]);
+    }
+    public function show_argent(Collection $collection){
+        return view('collections.show_argent',['collection' => $collection]);
+    }
+    public function show_diamant(Collection $collection){
+        return view('collections.show_diamant',['collection' => $collection]);
+    }
+        */
 }

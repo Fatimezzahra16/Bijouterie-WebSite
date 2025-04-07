@@ -219,44 +219,31 @@
             <h1 class="text-3xl font-bold gold-text font-serif">LUXE</h1>
             
             <ul class="hidden md:flex space-x-8">
-                <li><a href="../site_eco/index.php" class="nav-link hover-gold">Accueil</a></li>
-                <li><a href="../site_eco/bijoux.php" class="nav-link hover-gold">Bijoux</a></li>
-                <li><a href="../site_eco/montres.php" class="nav-link hover-gold">Montres</a></li>
-                <li><a href="cadeaux.php" class="nav-link hover-gold">Cadeaux</a></li>
-            </ul>
-            
-            
-            <div class="flex items-center space-x-4">
-                <div class="relative">
-                    <button class="hover-gold" onclick="toggleCart()">
-                        <i class="fas fa-shopping-bag text-xl"></i>
-                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                    </button>
-                    <div id="cart" class="hidden absolute right-0 mt-2 w-72 bg-white text-gray-800 p-4 rounded shadow-lg border border-gray-100">
-                        <h2 class="text-lg font-bold border-b pb-2">Votre Panier</h2>
-                        <ul id="cart-items" class="mt-2"></ul>
-                    </div>
-                </div>
-                
-             
-               <button class="px-2 py-2 text-sm rounded-full border border-gray-300 hover:border-gold hover-gold transition">
-                <li><a href="{{ route('login') }}" class="fas fa-user mr-2">Connexion</a> 
-                </button></li>
-                
-               
+                <li><a href="{{route('dashboard.products')}}" class="nav-link hover-gold">tableau de bord</a></li>
+         
+            <a href="{{route('cart.index')}}" class="nav-link flex items-center">
+                <i class="fas fa-shopping-cart mr-2"></i> Panier
+                <span class="ml-1 bg-d4af37 text-white text-xs px-2 py-1 rounded-full">
+                  
+                </span>
+            </a>
+            <li><form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="nav-link flex items-center">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
+                </button>
+            </form></li>
+        </ul>   
             </div>
         </div>
     </nav>
+
     
     <main class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4">
              <!-- Add Product Button -->
              <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl font-serif font-bold gold-text">Nos Produits</h2>
-                <a href="{{ route('product.create') }}" 
-                   class="gold-bg hover:bg-yellow-600 text-white px-6 py-3 rounded-full transition-all duration-300 font-medium flex items-center shadow-md hover:shadow-lg">
-                   <i class="fas fa-plus-circle mr-2"></i> Nouveau Produit
-                </a>
             </div>
             <form id="search-form" method="GET" action="{{ route('product.index') }}" class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
@@ -379,11 +366,19 @@
                                 </div>
                             @endif
                             <!-- Details overlay button (appears on hover) -->
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                <a href="{{ route('product.show', $item->id) }}" 
-                                   class="bg-white text-gray-800 px-6 py-2 rounded-full font-medium hover:bg-gold-500 hover:text-white transition">
-                                   Voir détails <i class="fas fa-arrow-right ml-2"></i>
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100 space-x-2">
+                                <a href="{{ route('dashboard.products_details', $item->id) }}" 
+                                   class="bg-white text-gray-800 px-4 py-2 rounded-full font-medium hover:bg-gold-500 hover:text-white transition">
+                                   <i class="fas fa-eye mr-1"></i>
                                 </a>
+                                <form action="{{ route('cart.add', $item->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" 
+                                            class="bg-white text-gray-800 px-4 py-2 rounded-full font-medium hover:bg-gold-500 hover:text-white transition"
+                                            @if($item->stock < 1) disabled @endif>
+                                        <i class="fas fa-cart-plus mr-1"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -394,34 +389,27 @@
                         <div class="flex justify-between items-center mb-3">
                             <div>
                                 <span class="font-bold text-lg">{{ number_format($item->prix, 2) }} MAD</span>
-                                <span class="block text-sm text-gray-500">{{ $item->stock }} en stock</span>
+                                <span class="block text-sm @if($item->stock > 0) text-gray-500 @else text-red-500 @endif">
+                                    @if($item->stock > 0) {{ $item->stock }} en stock @else Rupture de stock @endif
+                                </span>
                             </div>
                             <span class="collection-tag bg-gray-100 px-3 py-1 rounded-full text-xs">{{ $item->collection->nom }}</span>
-                        </div>
-                        
-                        <div class="flex space-x-3 pt-4 border-t border-gray-100">
-                            <a href="{{ route('product.edit', ['product' => $item]) }}" 
-                               class="action-btn edit-btn flex-1 text-center">
-                               <i class="fas fa-edit mr-1"></i> Modifier
+                        </div>  
+            
+                        <!-- Mobile buttons (visible only on mobile) -->
+                        <div class="mt-4 md:hidden flex space-x-2">
+                            <a href="{{ route('dashboard.products_details', $item->id) }}" 
+                               class="flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded transition text-sm">
+                               <i class="fas fa-eye mr-1"></i> Détails
                             </a>
-                            <form method="post" 
-                                  action="{{ route('product.delete', ['product' => $item]) }}" 
-                                  class="flex-1"
-                                  onsubmit="return confirm('Supprimer ce produit?')">
+                            <form action="{{ route('cart.add', $item->id) }}" method="POST" class="flex-1">
                                 @csrf
-                                @method('delete')
-                                <button type="submit" class="action-btn delete-btn w-full">
-                                    <i class="fas fa-trash-alt mr-1"></i> Supprimer
+                                <button type="submit" 
+                                        class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded transition text-sm"
+                                        @if($item->stock < 1) disabled @endif>
+                                    <i class="fas fa-cart-plus mr-1"></i> Ajouter
                                 </button>
                             </form>
-                        </div>
-                        
-                        <!-- Additional details link (visible on mobile) -->
-                        <div class="mt-4 md:hidden">
-                            <a href="{{ route('product.show', $item->id) }}" 
-                               class="w-full text-center block bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded transition">
-                               <i class="fas fa-eye mr-2"></i> Voir détails
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -502,79 +490,6 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        // Diaporama
-        let index = 0;
-        function changeSlide() {
-            let images = document.querySelectorAll(".header-background img");
-            images.forEach((img, i) => img.classList.remove("active"));
-            images[index].classList.add("active");
-            index = (index + 1) % images.length;
-        }
-        setInterval(changeSlide, 5000);
-        
-        // Panier
-        let cartItems = [];
-        let cartCount = 0;
-        
-        function toggleCart() {
-            const cart = document.getElementById('cart');
-            cart.classList.toggle('hidden');
-        }
-        
-        function ajouterAuPanier(nom, prix) {
-            cartItems.push({ nom, prix });
-            cartCount++;
-            document.getElementById('cart-count').textContent = cartCount;
-            
-            const cartItemsList = document.getElementById('cart-items');
-            cartItemsList.innerHTML = '';
-            
-            cartItems.forEach(item => {
-                const li = document.createElement('li');
-                li.className = 'py-2 border-b border-gray-100 flex justify-between';
-                li.innerHTML = `
-                    <span>${item.nom}</span>
-                    <span>${item.prix} €</span>
-                `;
-                cartItemsList.appendChild(li);
-            });
-            
-            // Afficher le total
-            const total = cartItems.reduce((sum, item) => sum + item.prix, 0);
-            const totalLi = document.createElement('li');
-            totalLi.className = 'py-2 font-bold flex justify-between';
-            totalLi.innerHTML = `
-                <span>Total</span>
-                <span>${total.toFixed(2)} €</span>
-            `;
-            cartItemsList.appendChild(totalLi);
-            
-            // Ajouter un bouton de checkout
-            const checkoutBtn = document.createElement('button');
-            checkoutBtn.className = 'w-full mt-4 gold-bg text-white py-2 rounded hover:bg-yellow-600';
-            checkoutBtn.textContent = 'Commander';
-            cartItemsList.appendChild(checkoutBtn);
-            
-            // Animation
-            const cartBtn = document.querySelector('[onclick="toggleCart()"]');
-            cartBtn.classList.add('animate-bounce');
-            setTimeout(() => {
-                cartBtn.classList.remove('animate-bounce');
-            }, 1000);
-        }
-    </script>
-
-     <script>
-        let index = 0;
-        function changeSlide() {
-            let images = document.querySelectorAll(".header-background img");
-            images.forEach((img, i) => img.classList.remove("active"));
-            images[index].classList.add("active");
-            index = (index + 1) % images.length;
-        }
-        setInterval(changeSlide, 3000);
-    </script>
+      
 </body>
 </html>

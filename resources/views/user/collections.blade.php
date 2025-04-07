@@ -226,34 +226,30 @@
     </style>
 </head>
 <body>
-<nav class="bg-white text-gray-800 py-4 px-8 shadow-sm fixed w-full z-50">
+    <nav class="bg-white text-gray-800 py-4 px-8 shadow-sm fixed w-full z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold gold-text font-serif">LUXE</h1>
+            
             <ul class="hidden md:flex space-x-8">
-                <li><a href="../site_eco/index.php" class="nav-link hover-gold">Accueil</a></li>
-                <li><a href="/site_eco/bijoux.php" class="nav-link hover-gold">Bijoux</a></li>
-                <li><a href="../site_eco/montres.php" class="nav-link hover-gold">Montres</a></li>
-                <li><a href="cadeaux.php" class="nav-link hover-gold">Cadeaux</a></li>
-            </ul>
-
-            <div class="flex items-center space-x-4">
-                <div class="relative">
-                    <button class="hover-gold" onclick="toggleCart()">
-                        <i class="fas fa-shopping-bag text-xl"></i>
-                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                    </button>
-                    <div id="cart" class="hidden absolute right-0 mt-2 w-72 bg-white text-gray-800 p-4 rounded shadow-lg border border-gray-100">
-                        <h2 class="text-lg font-bold border-b pb-2">Votre Panier</h2>
-                        <ul id="cart-items" class="mt-2"></ul>
-                    </div>
-                </div>
-                 <button class="px-2 py-2 text-sm rounded-full border border-gray-300 hover:border-gold hover-gold transition">
-                <li><a href="../site_eco/Connexion.php" class="fas fa-user mr-2">Connexion</a>
-                </button></li>
-
+                <li><a href="{{route('dashboard.products')}}" class="nav-link hover-gold">tableau de bord</a></li>
+         
+            <a href="" class="nav-link flex items-center">
+                <i class="fas fa-shopping-cart mr-2"></i> Panier
+                <span class="ml-1 bg-d4af37 text-white text-xs px-2 py-1 rounded-full">
+                  
+                </span>
+            </a>
+            <li><form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="nav-link flex items-center">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
+                </button>
+            </form></li>
+        </ul>   
             </div>
         </div>
     </nav>
+
 
 
 <<section class="py-12 bg-white">
@@ -262,14 +258,6 @@
             <h2 class="text-4xl font-serif font-bold mb-4 gold-text">Nos Collections</h2>
             <p class="text-gray-600 max-w-2xl mx-auto text-lg">Découvrez nos gammes de bijoux soigneusement sélectionnés</p>
         </div>
-
-        <!-- Success message -->
-        @if(session()->has('success'))
-            <div class="success-message">
-                {{ session('success') }}
-            </div>
-        @endif
-
         <!-- Collections Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> <!-- Reduced gap -->
             @foreach ($collections as $item)
@@ -288,7 +276,7 @@
                     
                     <!-- More compact hover overlay button -->
                     <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                        <a href="{{ route('collection.show', $item->id) }}" 
+                        <a href="{{ route('dashboard.collections_details', $item->id) }}" 
                            class="bg-white text-gray-800 px-3 py-1.5 rounded-full font-medium hover:bg-gold-500 hover:text-white transition text-sm">
                            <i class="fas fa-eye mr-1 text-xs"></i>Voir détails
                         </a>
@@ -301,26 +289,14 @@
                     <p class="text-gray-600 text-sm mb-3">{{ Str::limit($item->description, 80) }}</p> <!-- Smaller text -->
                     
                     <div class="flex justify-between items-center space-x-2 pt-3 border-t border-gray-100">
-                        <a href="{{ route('collection.edit', ['collection' => $item]) }}" 
+                        <a href="" 
                            class="flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-800 py-1 px-2 rounded text-xs transition">
-                           <i class="fas fa-edit mr-1 text-xs"></i>Éditer
                         </a>
-                        
-                        <form method="post" 
-                              action="{{ route('collection.delete', ['collection' => $item]) }}" 
-                              class="flex-1"
-                              onsubmit="return confirm('Supprimer cette collection?')">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="w-full bg-red-50 hover:bg-red-100 text-red-600 py-1 px-2 rounded text-xs transition">
-                                <i class="fas fa-trash-alt mr-1 text-xs"></i>Supprimer
-                            </button>
-                        </form>
                     </div>
                     
                     <!-- More compact mobile details link -->
                     <div class="mt-3 md:hidden">
-                        <a href="{{ route('collection.show', $item->id) }}" 
+                        <a href="{{ route('dashboard.collections_details', $item->id) }}" 
                            class="w-full text-center block bg-gray-100 hover:bg-gray-200 text-gray-800 py-1.5 px-3 rounded transition text-xs">
                            <i class="fas fa-eye mr-1 text-xs"></i>Voir détails
                         </a>

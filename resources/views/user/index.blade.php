@@ -56,7 +56,7 @@
                 <a href="{{ route('dashboard') }}" class="nav-link flex items-center">
                     <i class="fas fa-tachometer-alt mr-2"></i> Tableau de Bord
                 </a>
-                <a href="{{route('cart.index')}}" class="nav-link flex items-center">
+                <a href="" class="nav-link flex items-center">
                     <i class="fas fa-shopping-cart mr-2"></i> Panier
                     <span class="ml-1 bg-d4af37 text-white text-xs px-2 py-1 rounded-full">
                       
@@ -78,7 +78,7 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <!-- Quick Links Cards -->
-            <a href="{{ route('dashboard.collections') }}" class="dashboard-card p-6 text-center">
+            <a href="{{ route('collection.index') }}" class="dashboard-card p-6 text-center">
                 <div class="text-d4af37 mb-4">
                     <i class="fas fa-gem text-4xl"></i>
                 </div>
@@ -86,7 +86,7 @@
                 <p class="text-gray-600">Parcourez nos collections exclusives</p>
             </a>
             
-            <a href="{{ route('dashboard.products') }}" class="dashboard-card p-6 text-center">
+            <a href="{{ route('product.index') }}" class="dashboard-card p-6 text-center">
                 <div class="text-d4af37 mb-4">
                     <i class="fas fa-ring text-4xl"></i>
                 </div>
@@ -94,7 +94,7 @@
                 <p class="text-gray-600">Découvrez nos créations</p>
             </a>
             
-            <a href="{{route('commandes.historique')}}" class="dashboard-card p-6 text-center">
+            <a href="" class="dashboard-card p-6 text-center">
                 <div class="text-d4af37 mb-4">
                     <i class="fas fa-receipt text-4xl"></i>
                 </div>
@@ -102,7 +102,7 @@
                 <p class="text-gray-600">Voir l'historique</p>
             </a>
             
-            <a href="{{route('cart.index')}}" class="dashboard-card p-6 text-center">
+            <a href="" class="dashboard-card p-6 text-center">
                 <div class="text-d4af37 mb-4">
                     <i class="fas fa-shopping-bag text-4xl"></i>
                 </div>
@@ -110,7 +110,26 @@
                 <p class="text-gray-600"> articles</p>
             </a>
         </div>
+        
+        <!-- Recent Activity Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Recent Products -->
+            <div class="dashboard-card p-6">
+                <h3 class="text-xl font-serif font-bold mb-4 border-b pb-2">Nouveaux Produits</h3>
+                <div class="space-y-4">
+                    
+                </div>
+                <a href="{{ route('product.index') }}" class="nav-link flex items-center justify-end mt-4">
+                    Voir tous <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            
+            <!-- Recent Orders -->
+            <div class="dashboard-card p-6">
+                <h3 class="text-xl font-serif font-bold mb-4 border-b pb-2">Dernières Commandes</h3>
+               
+            </div>
+            
             <!-- Profile Summary -->
             <div class="dashboard-card p-6">
                 <h3 class="text-xl font-serif font-bold mb-4 border-b pb-2">Mon Profil</h3>
