@@ -35,7 +35,9 @@ class HomeController extends Controller
         $collection= Collection::find($id);
         $products= Produit::all();
         return view('user.collectionDetails',compact('collection','products'));
+        
     }
+    
 
     /*
     public function userProfile(){

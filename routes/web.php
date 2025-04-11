@@ -84,6 +84,9 @@ Route::get('/checkout', [CommandeController::class, 'checkout'])->name('checkout
 Route::post('/checkout/valider', [CommandeController::class, 'validerCommande'])->name('checkout.valider');
 
 Route::get('/mes-commandes', [CommandeController::class, 'historique'])->name('commandes.historique');
+use App\Http\Controllers\ContactController;
+
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 
 

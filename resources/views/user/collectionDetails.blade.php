@@ -124,7 +124,7 @@
     <nav class="bg-white text-gray-800 py-4 px-8 shadow-sm">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold gold-text font-serif">LUXE</h1>
-            <a href="{{ route('collection.index') }}" class="back-link flex items-center">
+            <a href="{{ route('dashboard.collections') }}" class="back-link flex items-center">
                 <i class="fas fa-arrow-left mr-2"></i> Retour aux collections
             </a>
         </div>

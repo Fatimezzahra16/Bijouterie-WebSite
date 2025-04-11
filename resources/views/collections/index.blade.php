@@ -1,4 +1,3 @@
-
 <?php
     $pageTitle       = "Nos Collections";
     $pageDescription = "Découvrez nos différentes collections de bijoux";
@@ -6,85 +5,116 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxe Jewelry - Bijoux de Luxe</title>
+    <title>JEWELRY - Bijoux de Luxe</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
         
+        :root {
+            --gold: #d4af37;
+            --dark: #2c3e50;
+            --light-bg: #f9f7f5;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #f9f7f5;
             color: #333;
+            padding-top: 76px; /* Ajustement précis pour la hauteur de la barre */
         }
 
-        .header-background {
+        .jewelry-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: 1px;
             position: relative;
-            width: 100%;
-            height: 80vh;
-            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            color: var(--dark);
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            height: 40px; /* Hauteur fixe pour stabilité */
         }
 
-        .header-background img {
+        .jewelry-logo::before {
+            content: "";
             position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 1.25s ease-in-out;
+            width: 25px;
+            height: 25px;
+            background: var(--gold);
+            border-radius: 50%;
+            top: -8px;
+            left: -15px;
+            z-index: -1;
+            opacity: 0.3;
+            transition: transform 0.3s ease;
         }
 
-        .header-background img.active {
-            opacity: 1;
-        }
-
-        .hero-overlay {
+        .jewelry-logo::after {
+            content: "";
             position: absolute;
-            top: 0;
+            bottom: -5px;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            transition: width 0.3s ease;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
+        .jewelry-logo:hover {
+            color: var(--gold);
+        }
+
+        .jewelry-logo:hover::before {
+            transform: scale(1.2);
+        }
+
+        .jewelry-logo:hover::after {
+            width: 90%;
         }
 
         .gold-text {
-            color: #d4af37;
+            color: var(--gold);
+            margin-right: 2px; /* Espacement lettre J */
         }
 
-        .gold-bg {
-            background-color: #d4af37;
-        }
-
-        .gold-border {
-            border-color: #d4af37;
-        }
-
-        .hover-gold:hover {
-            color: #d4af37;
-        }
-
-        .product-card {
+        .collection-card {
             transition: all 0.3s ease;
             background: white;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        .product-card:hover {
-            transform: translateY(-10px);
+        .collection-card:hover {
+            transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .collection-image {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+            background-color: #f5f5f5;
+        }
+
+        .collection-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .collection-card:hover .collection-image img {
+            transform: scale(1.05);
         }
 
         .nav-link {
             position: relative;
+            padding: 8px 12px; /* Meilleur espacement tactile */
         }
 
         .nav-link:after {
@@ -94,7 +124,7 @@
             height: 2px;
             bottom: -2px;
             left: 0;
-            background-color: #d4af37;
+            background-color: var(--gold);
             transition: width 0.3s;
         }
 
@@ -102,89 +132,6 @@
             width: 100%;
         }
 
-
-        .newsletter {
-            background-color: #f8f8f8;
-            padding: 40px;
-            text-align: center;
-        }
-        .newsletter input[type="email"] {
-            padding: 10px;
-            width: 300px;
-            margin: 10px 0;
-        }
-        .newsletter button {
-            background-color: #000;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
-        .footer {
-            display: flex;
-            justify-content: space-around;
-            padding: 40px;
-            background-color: #fff;
-        }
-        .footer-column {
-            flex: 1;
-            padding: 0 20px;
-        }
-        .footer-column h3 {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-        .footer-column ul {
-            list-style: none;
-            padding: 0;
-        }
-        .footer-column ul li {
-            margin: 10px 0;
-        }
-        .footer-column ul li a {
-            text-decoration: none;
-            color: #333;
-        }
-        .footer-column ul li a:hover {
-            text-decoration: underline;
-        }
-        .copyright {
-            text-align: center;
-            padding: 20px;
-            background-color: #f8f8f8;
-        }
-        
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f9f7f5;
-            color: #333;
-            padding-top: 80px;
-        }
-        
-        .collection-card {
-            transition: all 0.3s ease;
-            background: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .collection-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .collection-image {
-            height: 200px;
-            background-color: #f5f5f5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #d4af37;
-            font-size: 3rem;
-        }
-        
         .success-message {
             background-color: #d4edda;
             color: #155724;
@@ -193,198 +140,142 @@
             margin-bottom: 1.5rem;
             text-align: center;
         }
-        .collection-image {
-    position: relative;
-    overflow: hidden;
-    height: 200px; /* Ajustez cette valeur selon vos besoins */
-    background-color: #f5f5f5;
-}
 
-.collection-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.collection-card:hover .collection-image img {
-    transform: scale(1.05);
-}
-
-/* Style pour le placeholder quand pas d'image */
-.no-photo-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    color: #d4af37;
-    font-size: 3rem;
-    background: linear-gradient(135deg, #f9f9f9 0%, #e0e0e0 100%);
-}
-
+        .hover-gold:hover {
+            color: var(--gold);
+        }
     </style>
 </head>
 <body>
-<nav class="bg-white text-gray-800 py-4 px-8 shadow-sm fixed w-full z-50">
+    <!-- Barre de navigation fixe optimisée -->
+    <nav class="bg-white text-gray-800 py-3 px-6 shadow-sm fixed top-0 left-0 w-full z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold gold-text font-serif">LUXE</h1>
-            <ul class="hidden md:flex space-x-8">
-                <li><a href="../site_eco/index.php" class="nav-link hover-gold">Accueil</a></li>
-                <li><a href="/site_eco/bijoux.php" class="nav-link hover-gold">Bijoux</a></li>
-                <li><a href="../site_eco/montres.php" class="nav-link hover-gold">Montres</a></li>
-                <li><a href="cadeaux.php" class="nav-link hover-gold">Cadeaux</a></li>
+            <a href="/" class="jewelry-logo text-xl md:text-2xl">
+                <span class="gold-text">J</span>EWELRY
+            </a>
+            
+            <ul class="hidden md:flex items-center space-x-6">
+                <li>
+                    <a href="{{ route('admin.index') }}" 
+                       class="nav-link hover-gold transition-colors duration-300 text-sm font-medium">
+                       Accueil
+                    </a>
+                </li>
             </ul>
-
-            <div class="flex items-center space-x-4">
-                <div class="relative">
-                    <button class="hover-gold" onclick="toggleCart()">
-                        <i class="fas fa-shopping-bag text-xl"></i>
-                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                    </button>
-                    <div id="cart" class="hidden absolute right-0 mt-2 w-72 bg-white text-gray-800 p-4 rounded shadow-lg border border-gray-100">
-                        <h2 class="text-lg font-bold border-b pb-2">Votre Panier</h2>
-                        <ul id="cart-items" class="mt-2"></ul>
-                    </div>
-                </div>
-                 <button class="px-2 py-2 text-sm rounded-full border border-gray-300 hover:border-gold hover-gold transition">
-                <li><a href="../site_eco/Connexion.php" class="fas fa-user mr-2">Connexion</a>
-                </button></li>
-
-            </div>
         </div>
     </nav>
 
-
-<<section class="py-12 bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-serif font-bold mb-4 gold-text">Nos Collections</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto text-lg">Découvrez nos gammes de bijoux soigneusement sélectionnés</p>
-        </div>
-
-        <!-- Success message -->
-        @if(session()->has('success'))
-            <div class="success-message">
-                {{ session('success') }}
+    <!-- Section Collections -->
+    <section class="py-12 bg-white">
+        <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-serif font-bold mb-4 gold-text">Nos Collections</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">Découvrez nos gammes de bijoux soigneusement sélectionnés</p>
             </div>
-        @endif
 
-        <!-- Collections Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> <!-- Reduced gap -->
-            @foreach ($collections as $item)
-            <div class="collection-card group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
-                <!-- Image with hover overlay -->
-                <div class="collection-image relative overflow-hidden h-40 bg-gray-100"> <!-- Slightly smaller image area -->
-                    @if($item->photo)
-                        <img src="{{ asset('images/collections/' . $item->photo) }}" 
-                             alt="{{ $item->nom }}"
-                             class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
-                    @else
-                        <div class="w-full h-full flex items-center justify-center text-gray-400">
-                            <i class="fas fa-layer-group fa-2xl"></i> <!-- Slightly smaller icon -->
+            @if(session()->has('success'))
+                <div class="success-message">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach ($collections as $item)
+                <div class="collection-card group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                    <div class="collection-image relative overflow-hidden h-40 bg-gray-100">
+                        @if($item->photo)
+                            <img src="{{ asset('images/collections/' . $item->photo) }}" 
+                                 alt="{{ $item->nom }}"
+                                 class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                <i class="fas fa-layer-group fa-2xl"></i>
+                            </div>
+                        @endif
+                        
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                            <a href="{{ route('collection.show', $item->id) }}" 
+                               class="bg-white text-gray-800 px-3 py-1.5 rounded-full font-medium hover:bg-gold-500 hover:text-white transition text-sm">
+                               <i class="fas fa-eye mr-1 text-xs"></i>Voir détails
+                            </a>
                         </div>
-                    @endif
+                    </div>
                     
-                    <!-- More compact hover overlay button -->
-                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                        <a href="{{ route('collection.show', $item->id) }}" 
-                           class="bg-white text-gray-800 px-3 py-1.5 rounded-full font-medium hover:bg-gold-500 hover:text-white transition text-sm">
-                           <i class="fas fa-eye mr-1 text-xs"></i>Voir détails
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-1.5">{{ $item->nom }}</h3>
+                        <p class="text-gray-600 text-sm mb-3">{{ Str::limit($item->description, 80) }}</p>
+                        
+                        <div class="flex justify-between items-center space-x-2 pt-3 border-t border-gray-100">
+                            <a href="{{ route('collection.edit', ['collection' => $item]) }}" 
+                               class="flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-800 py-1 px-2 rounded text-xs transition">
+                               <i class="fas fa-edit mr-1 text-xs"></i>Éditer
+                            </a>
+                            
+                            <form method="post" 
+                                  action="{{ route('collection.delete', ['collection' => $item]) }}" 
+                                  class="flex-1"
+                                  onsubmit="return confirm('Supprimer cette collection?')">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="w-full bg-red-50 hover:bg-red-100 text-red-600 py-1 px-2 rounded text-xs transition">
+                                    <i class="fas fa-trash-alt mr-1 text-xs"></i>Supprimer
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div class="mt-3 md:hidden">
+                            <a href="{{ route('collection.show', $item->id) }}" 
+                               class="w-full text-center block bg-gray-100 hover:bg-gray-200 text-gray-800 py-1.5 px-3 rounded transition text-xs">
+                               <i class="fas fa-eye mr-1 text-xs"></i>Voir détails
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">
+                        <a href="/" class="jewelry-logo hover:text-gold-500">
+                            <span class="gold-text">J</span>EWELRY
+                        </a>
+                    </h3>
+                    <p class="mb-4">Bijoux de luxe artisanaux depuis 1985</p>
+                    <div class="mt-4 flex justify-center items-center space-x-4">
+                        <a href="https://www.facebook.com" target="_blank" class="hover-gold">
+                            <i class="fab fa-facebook-f text-2xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com" target="_blank" class="hover-gold">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="https://www.pinterest.com" target="_blank" class="hover-gold">
+                            <i class="fab fa-pinterest text-2xl"></i>
                         </a>
                     </div>
                 </div>
                 
-                <!-- Card content with more compact buttons -->
-                <div class="p-4"> <!-- Reduced padding -->
-                    <h3 class="text-lg font-semibold mb-1.5">{{ $item->nom }}</h3> <!-- Slightly smaller text -->
-                    <p class="text-gray-600 text-sm mb-3">{{ Str::limit($item->description, 80) }}</p> <!-- Smaller text -->
-                    
-                    <div class="flex justify-between items-center space-x-2 pt-3 border-t border-gray-100">
-                        <a href="{{ route('collection.edit', ['collection' => $item]) }}" 
-                           class="flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-800 py-1 px-2 rounded text-xs transition">
-                           <i class="fas fa-edit mr-1 text-xs"></i>Éditer
-                        </a>
-                        
-                        <form method="post" 
-                              action="{{ route('collection.delete', ['collection' => $item]) }}" 
-                              class="flex-1"
-                              onsubmit="return confirm('Supprimer cette collection?')">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="w-full bg-red-50 hover:bg-red-100 text-red-600 py-1 px-2 rounded text-xs transition">
-                                <i class="fas fa-trash-alt mr-1 text-xs"></i>Supprimer
-                            </button>
-                        </form>
-                    </div>
-                    
-                    <!-- More compact mobile details link -->
-                    <div class="mt-3 md:hidden">
-                        <a href="{{ route('collection.show', $item->id) }}" 
-                           class="w-full text-center block bg-gray-100 hover:bg-gray-200 text-gray-800 py-1.5 px-3 rounded transition text-xs">
-                           <i class="fas fa-eye mr-1 text-xs"></i>Voir détails
-                        </a>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-
-<section class="py-16 bg-gray-800 text-white">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-        <h2 class="text-3xl font-serif font-bold mb-4">Abonnez-vous à notre newsletter</h2>
-        <p class="text-gray-300 mb-8">Recevez en exclusivité nos nouvelles collections et offres spéciales</p>
-
-        <form action="newsletter-subscribe.php" method="POST" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input type="email" name="email" placeholder="Votre email" required
-                   class="flex-grow px-4 py-3 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500">
-            <button type="submit" class="gold-bg text-white px-6 py-3 rounded-full hover:bg-yellow-600 transition font-medium">
-                S'abonner
-            </button>
-        </form>
-
-        <p class="mt-4 text-xs text-gray-400">
-            En vous abonnant, vous acceptez notre <a href="confidentialite.php" class="underline hover-gold">politique de confidentialité</a>.
-        </p>
-    </div>
-</section>
-<footer class="bg-gray-900 text-gray-300 py-12">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-serif font-bold text-white mb-4">LUXE</h3>
-                    <p class="mb-4">Bijoux de luxe artisanaux depuis 1985</p>
-                    <div class="mt-4 flex justify-center items-center space-x-4">
-                    <a href="https://www.facebook.com" target="_blank">
-                    <img src="../site_eco/images/acebook-iconf.png" alt="Facebook" class="w-10 h-10 rounded-full border-2 border-black">
-                    </a>
-                    <a href="https://www.instagram.com" target="_blank">
-                    <img src="../site_eco/images/instagram-icon.jpg" alt="Instagram" class="w-10 h-10 rounded-full border-2 border-black">
-                    </a>
-                    <a href="https://www.pinterest.com" target="_blank">
-                      <img src="../site_eco/images/téléchargement.png" alt="pinterest" class="w-10 h-10 rounded-full border-2 border-black">
-                      </a>
-                    </div>
-                </div>
                 <div>
                     <h4 class="text-white font-medium mb-4">Boutique</h4>
                     <ul class="space-y-2">
-                        <li><a href="../site_eco/nouveautes.php" class="hover-gold">Nouveautés</a></li>
-                        <li><a href="../site_eco/montres.php" class="hover-gold">Montres</a></li>
-                        <li><a href="../site_eco/cadeaux.php" class="hover-gold">Cadeaux</a></li>
+                        <li><a href="#" class="hover-gold">Nouveautés</a></li>
+                        <li><a href="#" class="hover-gold">Montres</a></li>
+                        <li><a href="#" class="hover-gold">Cadeaux</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="text-white font-medium mb-4">Service Client</h4>
                     <ul class="space-y-2">
-                        <li><a href="../site_eco/contact.php" class="hover-gold">Contact</a></li>
-                        <li><a href="../site_eco/livraison.php" class="hover-gold">Livraison</a></li>
-                        <li><a href="../site_eco/retours.php" class="hover-gold">Retours</a></li>
-                        <li><a href="../site_eco/faq.php" class="hover-gold">FAQ</a></li>
+                        <li><a href="#" class="hover-gold">Contact</a></li>
+                        <li><a href="#" class="hover-gold">Livraison</a></li>
+                        <li><a href="#" class="hover-gold">FAQ</a></li>
                     </ul>
                 </div>
 
@@ -394,13 +285,15 @@
                         <p class="mb-2">123 Avenue Montaigne</p>
                         <p class="mb-2">75008 Paris, France</p>
                         <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> +33 1 23 45 67 89</p>
-                        <p><i class="fas fa-envelope mr-2"></i> contact@luxe-jewelry.com</p>
+                        <p><i class="fas fa-envelope mr-2"></i> contact@jewelry.com</p>
                     </address>
                 </div>
             </div>
 
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-sm">
-                <p>&copy; 2023 Luxe Jewelry. Tous droits réservés.</p>
+                <p>&copy; 2023 JEWELRY. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
+</body>
+</html>

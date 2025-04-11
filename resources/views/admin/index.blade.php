@@ -3,81 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxe Jewelry - Admin Dashboard</title>
+    <title>JEWELRY - Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
         
+        :root {
+            --gold: #d4af37;
+            --dark: #2c3e50;
+            --light-bg: #f9f7f5;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #f8f9fa;
         }
-        
-        .gold-text {
-            color: #d4af37;
+
+        /* Logo styling */
+        .jewelry-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            color: var(--dark);
+            text-transform: uppercase;
         }
-        
-        .gold-bg {
-            background-color: #d4af37;
+
+        .jewelry-logo .gold-text {
+            color: var(--gold);
         }
-        
+
+        .jewelry-logo::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        /* Sidebar adjustments */
         .sidebar {
             background: #1a1a1a;
-            width: 200px; /* Reduced from 250px */
+            width: 200px;
             transition: all 0.3s;
         }
-        
+
+        .sidebar .jewelry-logo {
+            color: white;
+            padding: 20px 15px;
+        }
+
+        .sidebar .jewelry-logo::after {
+            background: var(--gold);
+        }
+
+        .gold-bg {
+            background-color: var(--gold);
+        }
+
         .sidebar-link {
             transition: all 0.2s;
             padding: 0.5rem 1rem;
+            color: #e5e7eb;
         }
-        
+
         .sidebar-link:hover {
             background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
         }
-        
+
         .active-link {
             background: rgba(212, 175, 55, 0.2);
-            border-left: 3px solid #d4af37;
-        }
-        
-        .logout-btn {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            transition: all 0.3s;
-        }
-        
-        .logout-btn:hover {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: rgba(239, 68, 68, 0.5);
+            border-left: 3px solid var(--gold);
         }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden">
     <!-- Slim Sidebar -->
     <div class="sidebar text-gray-300 flex flex-col">
-        <div class="p-4 flex items-center justify-center border-b border-gray-800">
-            <h1 class="text-xl font-serif font-bold gold-text">LUXE</h1> <!-- Smaller text -->
-        </div>
-        
-        <div class="p-3 border-b border-gray-800 flex items-center space-x-2"> <!-- Reduced padding -->
-            <img src="https://via.placeholder.com/36" alt="Admin" class="rounded-full w-9 h-9"> <!-- Smaller avatar -->
-            <div>
-                <p class="text-sm font-medium">Admin</p> <!-- Smaller text -->
-                <p class="text-xs text-gray-500">Super Admin</p>
-            </div>
-        </div>
-        
-        <nav class="mt-4 flex-1"> <!-- Reduced margin-top -->
-            <div class="px-3 mb-4"> <!-- Reduced padding -->
-                <p class="text-xs uppercase text-gray-500 mb-1 px-2">Principal</p> <!-- Smaller text -->
-                <a href="#" class="block text-sm sidebar-link active-link"> <!-- Smaller text -->
+        <!-- Logo -->
+        <a href="/" class="jewelry-logo text-xl">
+            <span class="gold-text">J</span>EWELRY
+        </a>
+
+        <nav class="mt-2 flex-1">
+            <div class="px-3 mb-4">
+                <p class="text-xs uppercase text-gray-500 mb-1 px-2">Principal</p>
+                <a href="#" class="block text-sm sidebar-link active-link">
                     <i class="fas fa-tachometer-alt mr-2 gold-text"></i> Tableau de bord
                 </a>
             </div>
-            
+
+            <!-- ... (le reste du sidebar reste inchangé) ... -->
+
             <div class="px-3 mb-4">
                 <p class="text-xs uppercase text-gray-500 mb-1 px-2">Collections</p>
                 <a href="{{route('collection.index')}}" class="block text-sm sidebar-link">
@@ -103,47 +125,36 @@
                 </a>
             </div>
 
-     
-            <!-- Other menu items... -->
+
+
         </nav>
-        
-        <!-- Logout Button - Bottom of sidebar -->
+
+        <!-- Logout Button -->
         <div class="p-3 mt-auto border-t border-gray-800">
-    <form method="POST" action="{{ route('logout') }}" class="w-full">
-        @csrf
-        <button type="submit" class="logout-btn w-full flex items-center justify-center text-sm rounded-lg py-2 px-3">
-            <i class="fas fa-sign-out-alt mr-2"></i>
-            Se déconnecter
-        </button>
-    </form>
-</div>
+            <form method="POST" action="{{ route('logout') }}" class="w-full">
+                @csrf
+                <button type="submit" class="logout-btn w-full flex items-center justify-center text-sm rounded-lg py-2 px-3">
+                    <i class="fas fa-sign-out-alt mr-2"></i>
+                    Se déconnecter
+                </button>
+            </form>
+        </div>
     </div>
-    
-     <!-- Main Content -->
+    <!-- Other menu items... -->
+    </nav>
+
+    <!-- Main Content -->
     <div class="flex-1 overflow-auto">
         <!-- Top Navigation -->
         <header class="bg-white shadow-sm p-4 flex justify-between items-center">
-            <div class="flex items-center">
-                <button class="mr-4 text-gray-600">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h2 class="text-xl font-semibold">Dashboard</h2>
-            </div>
-            
+            <h2 class="text-xl font-semibold">Tableau de bord</h2>
             <div class="flex items-center space-x-4">
-                <button class="text-gray-600 hover:text-gray-900">
-                    <i class="fas fa-bell"></i>
-                </button>
-                <button class="text-gray-600 hover:text-gray-900">
-                    <i class="fas fa-envelope"></i>
-                </button>
-                <button class="text-gray-600 hover:text-gray-900">
-                    <i class="fas fa-cog"></i>
-                </button>
+                <!-- Icônes de notification -->
             </div>
         </header>
+
         
-        <!-- Dashboard Content -->
+        <!-- ... (le reste du contenu reste inchangé) ... --><!-- Dashboard Content -->
         <main class="p-6">
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -216,21 +227,23 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="font-semibold mb-4">Add New Product</h3>
-                    <p class="text-gray-600 text-sm mb-4">Quickly add a new product to your collection</p>
+                    <h3 class="font-semibold mb-4">Ajouter Nouveau Produit</h3>
+                    <p class="text-gray-600 text-sm mb-4">Ajoutez rapidement un nouveau produit à votre collection</p>
                     <a href="{{route('product.create')}}">
                     <button class="w-full gold-bg text-white py-2 rounded-lg hover:bg-yellow-600 transition">
-                        <i class="fas fa-plus mr-2"></i> Add Product
+                        <i class="fas fa-plus mr-2"></i> Ajouter Produit
                     </button>
                     </a>
                 </div>
                 
                 <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="font-semibold mb-4">View Inventory</h3>
-                    <p class="text-gray-600 text-sm mb-4">Check stock levels and manage inventory</p>
+                    <h3 class="font-semibold mb-4">Voir l'inventaire</h3>
+                    <p class="text-gray-600 text-sm mb-4">Vérifier les niveaux de stock et gérer l'inventaire</p>
+                    <a href="{{ route('product.index') }}">
                     <button class="w-full border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
                         <i class="fas fa-boxes mr-2"></i> View Inventory
                     </button>
+                    </a>
                 </div>
           
             </div>
@@ -238,5 +251,3 @@
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
