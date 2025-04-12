@@ -11,7 +11,7 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #f9f7f5;
+            background-color:rgb(243, 239, 236);
             color: #333;
         }
         
