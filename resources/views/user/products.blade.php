@@ -209,23 +209,163 @@
     padding: 0.75rem 1.5rem;
     font-size: 1.1rem;
 }
+:root {
+            --gold: #d4af37;
+            --dark: #2c3e50;
+            --light-bg: #f9f7f5;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f7f5;
+            color: #333;
+            padding-top: 76px; /* Ajustement précis pour la hauteur de la barre */
+        }
+
+        .jewelry-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            color: var(--dark);
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            height: 40px; /* Hauteur fixe pour stabilité */
+        }
+
+        .jewelry-logo::before {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: var(--gold);
+            border-radius: 50%;
+            top: -8px;
+            left: -15px;
+            z-index: -1;
+            opacity: 0.3;
+            transition: transform 0.3s ease;
+        }
+
+        .jewelry-logo::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            transition: width 0.3s ease;
+        }
+
+        .jewelry-logo:hover {
+            color: var(--gold);
+        }
+
+        .jewelry-logo:hover::before {
+            transform: scale(1.2);
+        }
+
+        .jewelry-logo:hover::after {
+            width: 90%;
+        }
+
+        .gold-text {
+            color: var(--gold);
+            margin-right: 2px; /* Espacement lettre J */
+        }
+
+        .collection-card {
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .collection-image {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+            background-color: #f5f5f5;
+        }
+
+        .collection-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .collection-card:hover .collection-image img {
+            transform: scale(1.05);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 8px 12px; /* Meilleur espacement tactile */
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .hover-gold:hover {
+            color: var(--gold);
+        }
+        .fixed-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 30px 0;
+      font-size: 22px;
+    }
     </style>
 </head>
 <body>
-
-    <!-- Navbar -->
-    <nav class="bg-white text-gray-800 py-4 px-8 shadow-sm fixed w-full z-50">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold gold-text font-serif">LUXE</h1>
-            
-            <ul class="hidden md:flex space-x-8">
-                <li><a href="{{route('dashboard.products')}}" class="nav-link hover-gold">tableau de bord</a></li>
-         
+<nav class="fixed-navbar">
+    
+      <!-- Add Product Button -->
+      <div class="max-w-7xl mx-auto flex justify-between items-center px-8">
+      <a href="/" class="jewelry-logo"><span>J</span>ewelry</a>
+      <div class="flex items-center space-x-4">
+       
+      <ul class="hidden md:flex space-x-8">
+            <a href="{{route('dashboard')}}" class="nav-link hover-gold">tableau de bord</a>
             <a href="{{route('cart.index')}}" class="nav-link flex items-center">
                 <i class="fas fa-shopping-cart mr-2"></i> Panier
-                <span class="ml-1 bg-d4af37 text-white text-xs px-2 py-1 rounded-full">
-                  
-                </span>
+               
             </a>
             <li><form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -233,10 +373,13 @@
                     <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
                 </button>
             </form></li>
-        </ul>   
-            </div>
-        </div>
-    </nav>
+        </ul> 
+      </div>
+     
+    </div>
+  </nav>
+
+    
 
     
     <main class="py-16 bg-gray-50">
@@ -422,74 +565,64 @@
     </main>
 
     
-    <!-- Newsletter -->
-    <section class="py-16 bg-gray-800 text-white">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-serif font-bold mb-4">Abonnez-vous à notre newsletter</h2>
-            <p class="text-gray-300 mb-8">Recevez en exclusivité nos nouvelles collections et offres spéciales</p>
-            <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input type="email" placeholder="Votre email" class="flex-grow px-4 py-3 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500">
-                <button  type="submit" class="gold-bg text-white px-6 py-3 rounded-full hover:bg-yellow-600 transition font-medium">
-                    S'abonner
-                </button>
-            </div>
-        </div>
-    </section>
+    
     
     <!-- Pied de page -->
     <footer class="bg-gray-900 text-gray-300 py-12">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-serif font-bold text-white mb-4">LUXE</h3>
+                    <h3 class="text-xl font-bold text-white mb-4">
+                        <a href="/" class="jewelry-logo hover:text-gold-500">
+                            <span class="gold-text">J</span>EWELRY
+                        </a>
+                    </h3>
                     <p class="mb-4">Bijoux de luxe artisanaux depuis 1985</p>
                     <div class="mt-4 flex justify-center items-center space-x-4">
-                    <a href="https://www.facebook.com" target="_blank">
-                    <img src="../site_eco/images/acebook-iconf.png" alt="Facebook" class="w-10 h-10 rounded-full border-2 border-black">
-                    </a>
-                    <a href="https://www.instagram.com" target="_blank">
-                    <img src="../site_eco/images/instagram-icon.jpg" alt="Instagram" class="w-10 h-10 rounded-full border-2 border-black">
-                    </a>
-                    <a href="https://www.pinterest.com" target="_blank">
-                      <img src="../site_eco/images/téléchargement.png" alt="pinterest" class="w-10 h-10 rounded-full border-2 border-black">
-                      </a>
+                        <a href="https://www.facebook.com" target="_blank" class="hover-gold">
+                            <i class="fab fa-facebook-f text-2xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com" target="_blank" class="hover-gold">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="https://www.pinterest.com" target="_blank" class="hover-gold">
+                            <i class="fab fa-pinterest text-2xl"></i>
+                        </a>
                     </div>
                 </div>
+                
                 <div>
                     <h4 class="text-white font-medium mb-4">Boutique</h4>
                     <ul class="space-y-2">
-                        <li><a href="../site_eco/nouveautes.php" class="hover-gold">Nouveautés</a></li>
-                        <li><a href="../site_eco/montres.php" class="hover-gold">Montres</a></li>
-                        <li><a href="../site_eco/cadeaux.php" class="hover-gold">Cadeaux</a></li>
+                        <li><a href="#" class="hover-gold">Nouveautés</a></li>
+                        <li><a href="#" class="hover-gold">Montres</a></li>
+                        <li><a href="#" class="hover-gold">Cadeaux</a></li>
                     </ul>
                 </div>
-                
+
                 <div>
                     <h4 class="text-white font-medium mb-4">Service Client</h4>
                     <ul class="space-y-2">
-                        <li><a href="contact.php" class="hover-gold">Contact</a></li>
-                        <li><a href="livraison.php" class="hover-gold">Livraison</a></li>
-                        <li><a href="retours.php" class="hover-gold">Retours</a></li>
-                        <li><a href="hover-gold.php" class="hover-gold">FAQ</a></li>
+                        <li><a href="#" class="hover-gold">Contact</a></li>
+                        <li><a href="#" class="hover-gold">Livraison</a></li>
+                        <li><a href="#" class="hover-gold">FAQ</a></li>
                     </ul>
                 </div>
-                
+
                 <div>
                     <h4 class="text-white font-medium mb-4">Contact</h4>
                     <address class="not-italic">
                         <p class="mb-2">123 Avenue Montaigne</p>
-                        <p class="mb-2">75008 Paris, France</p>
-                        <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> +33 1 23 45 67 89</p>
-                        <p><i class="fas fa-envelope mr-2"></i> contact@luxe-jewelry.com</p>
+                        <p class="mb-2">75008 Paris, Rabat</p>
+                        <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i>+212 651 57 65 97</p>
+                        <p><i class="fas fa-envelope mr-2"></i> contact@jewelry.com</p>
                     </address>
                 </div>
             </div>
-            
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-sm">
-                <p>&copy; 2023 Luxe Jewelry. Tous droits réservés.</p>
-            </div>
+
+           
         </div>
-    </footer>
-      
+        
+    </footer> 
 </body>
 </html>

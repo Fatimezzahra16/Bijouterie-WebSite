@@ -146,12 +146,6 @@
                     <a href="{{ route('profile.edit') }}" class="nav-link flex items-center">
                         <i class="fas fa-user-edit mr-3"></i> Modifier le profil
                     </a>
-                    <a href="" class="nav-link flex items-center">
-                        <i class="fas fa-address-book mr-3"></i> Mes adresses
-                    </a>
-                    <a href="" class="nav-link flex items-center">
-                        <i class="fas fa-heart mr-3"></i> Ma wishlist
-                    </a>
                 </div>
             </div>
         </div>
@@ -160,8 +154,13 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-300 py-12 mt-12">
         <div class="max-w-7xl mx-auto px-8 text-center">
-            <p>&copy; {{ date('Y') }} Luxe Jewelry. Tous droits réservés.</p>
+            <p>&copy; {{ date('Y') }} Luxe Jewelry. Tous droits réservés.
+
+            </p>
+            
         </div>
+        
     </footer>
+    
 </body>
 </html>

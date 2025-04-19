@@ -22,7 +22,7 @@ class ContactController extends Controller
             'message' => 'required|string',
         ]);
 
-        $to = 'tonemail@example.com'; // Adresse de réception
+        $to = 'hamdaouifatimezzahra16@example.com'; // Adresse de réception
         $subject = 'Message du formulaire de contact';
         $body = "Nom: {$validated['name']}\nEmail: {$validated['email']}\nMessage:\n{$validated['message']}";
         $fromEmail = $validated['email'];

@@ -12,6 +12,8 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 //premiere page
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+// routes/web.php
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -41,6 +43,9 @@ Route::get('/products/{product}',[ProduitController::class,'show'])->name('produ
 
 //admin page
 route::get('admin',[HomeController::class,'index_admin'])->name('admin.index');
+Route::get('/admin', [HomeController::class, 'index_admin'])
+    ->middleware(['auth', 'admin']) // Ensure you have an 'admin' middleware
+    ->name('admin.dashboard');
 
 
 //crud pour les collection

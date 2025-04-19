@@ -52,18 +52,143 @@
             padding-bottom: 12px;
             margin-bottom: 12px;
         }
+        :root {
+      --gold: #d4af37;
+      --dark: #2c3e50;
+      --light-bg: #f9f7f5;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark);
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+        .jewelry-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      position: relative;
+      display: inline-block;
+      color: var(--dark);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding-bottom: 10px;
+    }
+
+    .jewelry-logo::before {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: var(--gold);
+      border-radius: 50%;
+      top: -8px;
+      left: -15px;
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    .jewelry-logo::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .jewelry-logo span::before {
+      content: "♦";
+      position: absolute;
+      color: var(--gold);
+      font-size: 0.8rem;
+      top: -12px;
+      right: -8px;
+    }
+
+    .jewelry-logo:hover {
+      color: var(--gold);
+      transition: color 0.3s ease;
+    }
+
+    .jewelry-logo:hover::before {
+      transform: scale(1.2);
+      transition: transform 0.3s ease;
+    }
+
+    .fixed-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 15px 0;
+    }
+    .hero-section {
+      position: relative;
+      height: 80vh;
+      overflow: hidden;
+      background-color: #2a2926;
+    }
+
+    .hero-bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .hero-bg-image.active {
+      opacity: 0.9;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-gold {
+      background-color: var(--gold);
+      color: white;
+      transition: all 0.3s;
+    }
+
+    .btn-gold:hover {
+      background-color: #b5952e;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--dark);
+      transition: all 0.3s;
+    }
     </style>
 </head>
 <body>
     <!-- Navigation (same as your other pages) -->
-    <nav class="bg-white text-gray-800 py-4 px-8 shadow-sm">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold gold-text font-serif">LUXE</h1>
-            <a href="{{ route('product.index') }}" class="back-link flex items-center">
+    <nav class="fixed-navbar">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-8">
+      <a href="/" class="jewelry-logo"><span>J</span>ewelry</a>
+      <div class="flex items-center space-x-4">
+      <a href="{{ route('product.index') }}" class="back-link flex items-center">
                 <i class="fas fa-arrow-left mr-2"></i> Retour aux produits
             </a>
-        </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
+    
 
     <div class="product-container">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -145,6 +270,20 @@
     <!-- Footer (same as your other pages) -->
     <footer class="bg-gray-900 text-gray-300 py-12">
         <!-- Your footer content -->
+        <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="mt-12 text-center">
+      <h3 class="text-xl font-medium mb-6">Nos coordonnées</h3>
+      <p class="mb-2"><i class="fas fa-map-marker-alt mr-2 text-gold-500"></i> 123 Avenue des Bijoux, 75001 Rabat</p>
+      <p class="mb-2"><i class="fas fa-phone mr-2 text-gold-500"></i> +212 6 51 57 68 97</p>
+      <p class="mb-6"><i class="fas fa-envelope mr-2 text-gold-500"></i> contact@luxe-jewelry.com</p>
+
+      <div class="flex justify-center space-x-6">
+                <a href="https://www.facebook.com/share/1649weVhTD/" class="text-gray-700 hover:text-gold-500"><i class="fab fa-facebook-f text-2xl"></i></a>
+                <a href="https://www.instagram.com/f__ati16?igsh=MWV6MHlicm9peTJndg==" class="text-gray-700 hover:text-gold-500"><i class="fab fa-instagram text-2xl"></i></a>
+                <a href=" https://twitter.com/login" class="text-gray-700 hover:text-gold-500"><i class="fab fa-twitter text-2xl"></i></a>
+                
+            </div>
+    </div>
     </footer>
 </body>
 </html>

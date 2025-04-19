@@ -54,7 +54,7 @@ class CommandeController extends Controller
 
     public function historique()
 {
-    $commandes = \App\Models\Commande::where('user_id', auth()->id())
+    $commandes = Commande::where('user_id', auth()->id())
                     ->with('lignes.produit') // pour charger les produits
                     ->orderBy('created_at', 'desc')
                     ->get();

@@ -187,6 +187,7 @@
                 <div class="flex items-center space-x-4 mb-6">
                     <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
                         <!-- Ajouter une icône utilisateur si nécessaire -->
+                         <img src="images/img1.jpeg">
                     </div>
                     <div>
                         <h4 class="font-medium">{{ auth()->user()->name }}</h4>
@@ -197,12 +198,6 @@
                     <a href="{{ route('profile.edit') }}" class="nav-link flex items-center">
                         <i class="fas fa-user-edit mr-3"></i> Modifier le profil
                     </a>
-                    <a href="" class="nav-link flex items-center">
-                        <i class="fas fa-address-book mr-3"></i> Mes adresses
-                    </a>
-                    <a href="" class="nav-link flex items-center">
-                        <i class="fas fa-heart mr-3"></i> Ma wishlist
-                    </a>
                 </div>
             </div>
         </div>
@@ -212,6 +207,10 @@
     <footer class="bg-gray-900 text-gray-300 py-12 mt-12">
         <div class="max-w-7xl mx-auto px-8 text-center">
             <p>&copy; {{ date('Y') }} <span class="gold-text">J</span>EWELRY. Tous droits réservés.</p>
+            <pre>
+
+        
+        </pre>
         </div>
     </footer>
 </body>

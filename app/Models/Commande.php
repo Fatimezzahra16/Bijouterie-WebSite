@@ -14,8 +14,10 @@ class Commande extends Model
 
     protected $fillable = [
         'user_id',
+        'total',
         'date',
         'etat',
+        
     ];
 
     // Relation avec l'utilisateur (chaque commande appartient à un utilisateur)
@@ -33,4 +35,6 @@ class Commande extends Model
 {
     return $this->hasMany(\App\Models\Commande::class);
 }
+
+
 }

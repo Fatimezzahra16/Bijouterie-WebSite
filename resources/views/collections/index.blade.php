@@ -79,7 +79,84 @@
         .gold-text {
             color: var(--gold);
             margin-right: 2px; /* Espacement lettre J */
-        }
+        }:root {
+      --gold: #d4af37;
+      --dark: #2c3e50;
+      --light-bg: #f9f7f5;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark);
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+        .jewelry-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      position: relative;
+      display: inline-block;
+      color: var(--dark);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding-bottom: 10px;
+    }
+
+    .jewelry-logo::before {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: var(--gold);
+      border-radius: 50%;
+      top: -8px;
+      left: -15px;
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    .jewelry-logo::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .jewelry-logo span::before {
+      content: "♦";
+      position: absolute;
+      color: var(--gold);
+      font-size: 0.8rem;
+      top: -12px;
+      right: -8px;
+    }
+
+    .jewelry-logo:hover {
+      color: var(--gold);
+      transition: color 0.3s ease;
+    }
+
+    .jewelry-logo:hover::before {
+      transform: scale(1.2);
+      transition: transform 0.3s ease;
+    }
+
+    .fixed-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 15px 0;
+    }
 
         .collection-card {
             transition: all 0.3s ease;
@@ -283,16 +360,14 @@
                     <h4 class="text-white font-medium mb-4">Contact</h4>
                     <address class="not-italic">
                         <p class="mb-2">123 Avenue Montaigne</p>
-                        <p class="mb-2">75008 Paris, France</p>
-                        <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> +33 1 23 45 67 89</p>
+                        <p class="mb-2">75008 Paris, Rabat</p>
+                        <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i>+212 651 57 65 97</p>
                         <p><i class="fas fa-envelope mr-2"></i> contact@jewelry.com</p>
                     </address>
                 </div>
             </div>
 
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-sm">
-                <p>&copy; 2023 JEWELRY. Tous droits réservés.</p>
-            </div>
+           
         </div>
     </footer>
 </body>

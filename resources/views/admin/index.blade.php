@@ -158,58 +158,103 @@
         <main class="p-6">
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white rounded-lg shadow card p-6">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500">Total Sales</p>
-                            <h3 class="text-2xl font-bold">24,780 MAD</h3>
-                            <p class="text-sm text-green-500 mt-1">+12% from last month</p>
-                        </div>
-                        <div class="p-3 rounded-full bg-blue-50 text-blue-600">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow card p-6">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500">New Orders</p>
-                            <h3 class="text-2xl font-bold">156</h3>
-                            <p class="text-sm text-green-500 mt-1">+8% from last month</p>
-                        </div>
-                        <div class="p-3 rounded-full bg-purple-50 text-purple-600">
-                            <i class="fas fa-shopping-bag"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow card p-6">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500">Products</p>
-                            <h3 class="text-2xl font-bold">287</h3>
-                            <p class="text-sm text-green-500 mt-1">+5 new this week</p>
-                        </div>
-                        <div class="p-3 rounded-full bg-yellow-50 text-yellow-600">
-                            <i class="fas fa-gem"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow card p-6">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500">Customers</p>
-                            <h3 class="text-2xl font-bold">1,243</h3>
-                            <p class="text-sm text-green-500 mt-1">+32 new today</p>
-                        </div>
-                        <div class="p-3 rounded-full bg-green-50 text-green-600">
-                            <i class="fas fa-users"></i>
-                        </div>
-                    </div>
-                </div>
+    <!-- Total Sales Card -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-gray-500">Total Sales</p>
+                <h3 class="text-2xl font-bold">{{ number_format($currentMonthSales, 0) }} MAD</h3>
+                <p class="text-sm {{ $salesPercentageChange >= 0 ? 'text-green-500' : 'text-red-500' }} mt-1">
+                    {{ $salesPercentageChange >= 0 ? '+' : '' }}{{ number_format($salesPercentageChange, 1) }}% vs last month
+                </p>
             </div>
+            <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                <i class="fas fa-coins"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Orders Card -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-gray-500">New Orders</p>
+                <h3 class="text-2xl font-bold">{{ $currentMonthOrders }}</h3>
+                <p class="text-sm {{ $ordersPercentageChange >= 0 ? 'text-green-500' : 'text-red-500' }} mt-1">
+                    {{ $ordersPercentageChange >= 0 ? '+' : '' }}{{ number_format($ordersPercentageChange, 1) }}% vs last month
+                </p>
+            </div>
+            <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Card -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-gray-500">Products</p>
+                <h3 class="text-2xl font-bold">{{ $totalProducts }}</h3>
+                <p class="text-sm text-green-500 mt-1">
+                    +{{ $newThisWeek }} new this week
+                </p>
+            </div>
+            <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                <i class="fas fa-gem"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customers Card -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-gray-500">Customers</p>
+                <h3 class="text-2xl font-bold">{{ $totalCustomers }}</h3>
+                <p class="text-sm text-green-500 mt-1">
+                    +{{ $newToday }} new today
+                </p>
+            </div>
+            <div class="p-3 rounded-full bg-green-100 text-green-600">
+                <i class="fas fa-users"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Orders Table -->
+<div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-xl font-semibold mb-4">Recent Orders</h2>
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead>
+                <tr class="text-left text-gray-600 border-b">
+                    <th class="pb-3">Order ID</th>
+                    <th class="pb-3">Customer</th>
+                    <th class="pb-3">Date</th>
+                    <th class="pb-3">Total</th>
+                    <th class="pb-3">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($latestOrders as $order)
+                <tr class="border-b last:border-b-0">
+                    <td class="py-3">#{{ $order->id }}</td>
+                    <td class="py-3">{{ $order->user->name }}</td>
+                    <td class="py-3">{{ $order->created_at->format('d/m/Y H:i') }}</td>
+                    <td class="py-3">{{ number_format($order->total, 2) }} MAD</td>
+                    <td class="py-3">
+                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                            Completed
+                        </span>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
             
             <!-- Recent Orders -->
             <div class="bg-white rounded-lg shadow overflow-hidden mb-8">
